@@ -1,6 +1,6 @@
 ---
 name: setup-doc-publish
-description: Optional second stage after setup-doc-workspace — install c-energie/doc-publish into the workspace venv and wire it to the document, so the LaTeX can be flattened into a queryable corpus and published as a Notion wiki, an offline Quarto site, or served to a chat backend. Covers the publish extra, doc-publish doctor/init/build/check, the two authoring skills it scaffolds, and the system dependencies (Quarto, a Notion integration token, Node for the agent backend). Use when the user says "set up doc-publish", "publish my thesis as a wiki/site", "build the corpus", "sync to Notion".
+description: Publish the document with doc-publish — a queryable corpus, a Notion wiki or a Quarto site — by installing it into the workspace and wiring it to the document. Use after setup-doc-workspace when the user wants to publish, build the corpus, or sync to Notion.
 ---
 
 # Set up doc-publish

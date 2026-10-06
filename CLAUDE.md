@@ -69,7 +69,7 @@ Never commit a built PDF.
 
 Figures arrive from the analysis repo, a third place, so order matters:
 
-1. In Overleaf: **Menu → GitHub → Push Overleaf changes to GitHub**.
+1. In Overleaf: **left-hand panel → Integrations → GitHub → Push Overleaf changes to GitHub**.
 2. `git pull` in `<<WRITING_DIR>>/` — **before** regenerating any figure.
 3. Run notebooks; commit `Sections/` in `<<WRITING_DIR>>/`; push.
 4. In Overleaf: **Pull GitHub changes into Overleaf**.
@@ -93,4 +93,5 @@ Figures arrive from the analysis repo, a third place, so order matters:
 |---|---|
 | `/setup-doc-workspace` | First-run setup: create both repos from the templates (or adopt an Overleaf project), name them, install, prove the pipeline. Safe to re-run. |
 | `/adapt-existing-document` | Bring an existing document into the `Sections/` / `\graphicspath` / label conventions, one section at a time. |
+| `/adapt-existing-analysis` | Copy an existing analysis project's notebooks in — the original stays untouched — and retrofit each with the `save_fig`/`save_table` setup. |
 | `/setup-doc-publish` | Optional: corpus, Notion wiki, Quarto site. |

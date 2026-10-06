@@ -60,6 +60,7 @@ notices and offers to give the workspace its own repo.
 |---|---|
 | `/setup-doc-workspace` | First-run setup. Safe to re-run. |
 | `/adapt-existing-document` | Move an existing document onto the conventions the tooling needs, a section at a time. |
+| `/adapt-existing-analysis` | Copy an existing analysis project's notebooks in (the original is never modified), place them by document section, and give each the `save_fig`/`save_table` setup. |
 | `/setup-doc-publish` | Optional: corpus, Notion wiki, Quarto site. |
 
 The mechanical steps live in

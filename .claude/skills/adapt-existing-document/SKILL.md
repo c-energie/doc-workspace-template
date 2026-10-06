@@ -1,6 +1,6 @@
 ---
 name: adapt-existing-document
-description: Bring an existing LaTeX document (typically an Overleaf project) into line with the conventions the analysis tooling and doc-publish rely on — Sections/<Name>/Figures layout, \graphicspath per figure directory, bare figure filenames, labels mirroring filenames — one section at a time; or, in import mode, move an existing document from .setup/import-source/ into the writing-template layout. Use after setup-doc-workspace in adapt or import mode, or when the user says "adapt my document", "move my chapters into Sections", "my figures aren't found", "import my old thesis into the template".
+description: Adapt an existing LaTeX document to the conventions the figure tooling needs (Sections/<Name>/Figures, \graphicspath, bare filenames, labels mirroring filenames), one section at a time — in place, or moved from .setup/import-source/ into the template. Use after setup-doc-workspace in adapt or import mode, or when generated figures aren't found by the document.
 ---
 
 # Adapt an existing document
@@ -54,13 +54,10 @@ bibliography location, whether a glossary exists, `\chapter` vs `\section`.
 4. **Labels.** For figures this section's notebooks will (re)generate, the label must be
    `Fig: <stem>`. Renaming a label means updating every `\ref`/`\cref` to it — grep the
    whole repo. Leave figures nobody will regenerate alone.
-5. **Prove it.** Recompile (local `make` or Overleaf). Then, in the analysis repo, write a
-   minimal notebook under `notebooks/<name>/` that saves one figure for this section:
-   ```python
-   from doc_analysis import notebook_savers, figure_size
-   save_fig, save_table = notebook_savers(section="<Name>", notebook="<file>.ipynb", tex="<file>.tex")
-   ```
-   (see `<analysis_dir>/README.md` "Usage"). Confirm the PNG landed in
+5. **Prove it.** Recompile (local `make` or Overleaf). Then, from the analysis repo,
+   `uv run notebook-skeleton new <Name> <notebook>` and fill in its figure cell to save one
+   figure for this section. (If `/adapt-existing-analysis` will bring this section's real
+   notebooks in later, delete this one then.) Confirm the PNG landed in
    `Sections/<Name>/Figures/` and a commented `\begin{figure}` block was appended.
 6. **Commit** in the writing repo (ask), push, then Overleaf → Pull GitHub changes.
 7. Repeat for the next section. Sections that will never hold generated figures may stay
@@ -90,7 +87,7 @@ The new writing repo is the initialised template; the old document is in
 6. Diff the old and new document for lost content: every `\label` in the old should exist
    in the new. Report any that don't.
 7. Commit (ask), push, then Overleaf **New Project → Import from GitHub**. Delete
-   `.setup/` at the workspace root.
+   `.setup/import-source/` at the workspace root.
 
 ## Finish
 

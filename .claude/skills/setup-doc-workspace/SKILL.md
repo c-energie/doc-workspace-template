@@ -1,6 +1,6 @@
 ---
 name: setup-doc-workspace
-description: First-run setup of a document workspace made from c-energie/doc-workspace-template — interview the user, create their writing repo (adopting an existing Overleaf project, importing an existing document into the template, or starting fresh) and their analysis repo from the c-energie templates, rename everything, write the uv workspace root, install dependencies and prove the figure pipeline works. Use when the user says "set up the workspace", "setup-doc-workspace", "I have an Overleaf thesis and want to use this", "create my writing and analysis repos", or when workspace.toml is missing at the workspace root.
+description: First-run setup of a document workspace — create the writing and analysis repos from the c-energie templates and prove a figure lands in the document. Use when workspace.toml is missing at the workspace root, or the user asks to set up the workspace or bring an Overleaf document into it.
 ---
 
 # Set up a document workspace
@@ -85,9 +85,9 @@ Ask in this order, a few questions at a time. Collect everything before running 
    `import` they can instead download the project zip and give a local path as source.
 
    For `adapt`, walk them through it now and wait for confirmation:
-   > In Overleaf, open the project → **Menu** → **GitHub** (under Sync) → link your GitHub
-   > account if asked → **Create a GitHub repository**, named exactly `<doc>-writing`,
-   > owner `<owner>`, private. Overleaf pushes the project there.
+   > In Overleaf, open the project → left-hand panel → **Integrations** → **GitHub** →
+   > connect your GitHub account if you haven't before → enter owner `<owner>` and repo
+   > name exactly `<doc>-writing`, private. Overleaf pushes the project there.
 
    For `import` from Overleaf: same steps but any repo name (e.g. `<doc>-overleaf-old`);
    that repo is the `--source`.
@@ -98,6 +98,10 @@ Ask in this order, a few questions at a time. Collect everything before running 
    headless-Chrome download).
 9. **Analysis distribution name** — default `<doc>-analysis`. Lower-case, digits, dashes.
    The import package stays `doc_analysis` regardless; say so if they ask why.
+
+10. **Existing analysis?** — a project with notebooks that should feed this document: its
+    local path or `OWNER/NAME`, or none. The analysis repo is still created fresh from the
+    template; the existing project is copied into it in step 8 and left untouched.
 
 Read back a summary table (every repo to be created, every directory, mode, backend) and
 get an explicit yes.
@@ -176,16 +180,20 @@ SETUP sync
 - **`adapt`**: the document has no `Sections/Example/`, so skip this. The proof happens
   in the next skill, against the first section moved into `Sections/`.
 
-## 8. Adapt the document (modes `adapt` and `import`)
+## 8. Bring existing work in
 
-Invoke the **adapt-existing-document** skill. It is judgment work (moving sections,
-`\graphicspath`, labels) done one section at a time with the user, not a script.
+- **Document** (modes `adapt` and `import`): invoke the **adapt-existing-document** skill.
+  It is judgment work (moving sections, `\graphicspath`, labels) done one section at a
+  time with the user, not a script.
+- **Analysis** (an existing project named in question 10): then invoke the
+  **adapt-existing-analysis** skill. It runs after the document, because notebooks are
+  placed by the document's `Sections/`.
 
 ## 9. Overleaf wiring
 
-- `adapt`: already linked. The routine from now on: push figure commits to GitHub, then in
-  Overleaf **Menu → GitHub → Pull GitHub changes into Overleaf**; after editing on Overleaf,
-  **Push Overleaf changes to GitHub** and `git pull` locally **before** regenerating figures.
+- `adapt`: already linked. Walk the user through the routine in the workspace `CLAUDE.md`,
+  "Overleaf routine" — its order (pull before regenerating figures) is what keeps prose
+  edited on Overleaf from colliding with regenerated figures.
 - `import` / `fresh`: once the document builds, in Overleaf **New Project → Import from
   GitHub** → `<owner>/<doc>-writing`. For `import`, tell the user to archive the old
   Overleaf project so no one keeps editing it.
@@ -199,7 +207,8 @@ Invoke the **adapt-existing-document** skill. It is judgment work (moving sectio
    commit and each push.
 2. At the workspace root, the files to commit are `CLAUDE.md`, `.gitignore`,
    `pyproject.toml`, `uv.lock`, `workspace.toml`. Ask, then commit and push.
-3. Delete `.setup/` once an `import` is finished (it is gitignored, but stale).
+3. Delete `.setup/import-source/` once an `import` is finished (gitignored, but stale).
+   `.setup/analysis-import/` belongs to adapt-existing-analysis, which deletes it itself.
 4. Offer the optional next step: **/setup-doc-publish** (corpus, Notion wiki, Quarto site).
 5. Point them at the `CLAUDE.md` at the workspace root — it is now filled in and is what
    every future session here loads.
