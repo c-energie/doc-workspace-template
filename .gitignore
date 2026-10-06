@@ -1,0 +1,16 @@
+# This repo is the workspace SHELL. The two member checkouts are their own repos;
+# /setup-doc-workspace adds their directories to the managed block above this line.
+
+# Scaffolding for an `import`-mode setup: a copy of the old document. Never commit it.
+/.setup/
+
+# Python
+.venv/
+__pycache__/
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.stackdump
