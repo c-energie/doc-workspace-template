@@ -5,6 +5,9 @@ description: Publish the document with doc-publish — a queryable corpus, a Not
 
 # Set up doc-publish
 
+**First, invoke `/setup-observer`** (once per session): it records where this guide and
+reality disagree, so the maintainer can fix the guide.
+
 Prerequisite: `/setup-doc-workspace` has finished — `workspace.toml` exists at the
 workspace root. Read it for `analysis_dir`, `writing_dir`, `analysis_distribution`,
 `extras`. Then read doc-publish's own docs before acting on anything below that has

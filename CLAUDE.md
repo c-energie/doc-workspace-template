@@ -95,3 +95,4 @@ Figures arrive from the analysis repo, a third place, so order matters:
 | `/adapt-existing-document` | Bring an existing document into the `Sections/` / `\graphicspath` / label conventions, one section at a time. |
 | `/adapt-existing-analysis` | Copy an existing analysis project's notebooks in — the original stays untouched — and retrofit each with the `save_fig`/`save_table` setup. |
 | `/setup-doc-publish` | Optional: corpus, Notion wiki, Quarto site. |
+| `/setup-observer` | Invoked by the setup skills: logs deviations from the guide and, with consent, files them on GitHub. |

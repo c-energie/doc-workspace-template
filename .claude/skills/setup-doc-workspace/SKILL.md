@@ -5,6 +5,9 @@ description: First-run setup of a document workspace — create the writing and 
 
 # Set up a document workspace
 
+**First, invoke `/setup-observer`** (once per session): it records where this guide and
+reality disagree, so the maintainer can fix the guide.
+
 The end state, mirroring the reference thesis workspace:
 
 ```

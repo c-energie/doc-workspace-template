@@ -5,6 +5,9 @@ description: Adapt an existing LaTeX document to the conventions the figure tool
 
 # Adapt an existing document
 
+**First, invoke `/setup-observer`** (once per session): it records where this guide and
+reality disagree, so the maintainer can fix the guide.
+
 Read `workspace.toml` at the workspace root for `writing_dir`, `analysis_dir` and
 `writing_mode`. Then read `<writing_dir>/AGENTS.md` and the template's
 [SETUP.md](https://github.com/c-energie/writing-template/blob/main/SETUP.md) section

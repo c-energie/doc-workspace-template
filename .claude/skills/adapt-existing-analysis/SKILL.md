@@ -5,6 +5,9 @@ description: Copy an existing analysis project's notebooks into the workspace's 
 
 # Adapt an existing analysis project
 
+**First, invoke `/setup-observer`** (once per session): it records where this guide and
+reality disagree, so the maintainer can fix the guide.
+
 ## The source is read-only
 
 The existing project is **copied, never modified.** Every file in it stays exactly where
