@@ -59,8 +59,9 @@ goes to `notebooks/<Section path>/<name>.ipynb`, mirroring `<writing_dir>/Sectio
 2. **Propose a table**: notebook → section → evidence. Ask the user about every notebook
    whose evidence is missing or points at two sections, a few at a time. A notebook the
    user cannot place yet stays in `notebooks/unsorted/`.
-3. **Helper code** the notebooks import: small modules go in `notebooks/` beside
-   `setup_notebook.py` (the setup cell puts that directory on `sys.path`). A package goes
+3. **Helper code** the notebooks import: small modules go in `notebooks/` itself,
+   not a section folder: the setup cell's `notebook_setup()` puts that directory on
+   `sys.path`, so they import from a notebook in any section. A package goes
    in through the plan too (`dest: packages/<name>/...`) and becomes an extra pointing at
    that copy — see `<analysis_dir>/AGENTS.md` on keeping it out of `src/`.
 4. **Large files, data and secrets** stay `null` unless the user names one to copy.
@@ -94,7 +95,7 @@ For each placed notebook (`notebooks/unsorted/` ones wait until they have a sect
    | `figure save` — `plt.savefig(...)`, `fig.write_image(...)` | `save_fig(fig, "<figure>.png", caption=..., label="<figure>")` |
    | `html export` — `fig.write_html(...)` | removed: `save_fig` writes the interactive export |
    | `table export` — `df.to_latex(...)` written to a file | `save_table(df, "<table>", caption=...)` |
-   | `path hack` — `os.chdir`, `sys.path.append` | removed: the setup cell does this |
+   | `path hack` — `os.chdir`, `sys.path.append` | removed: `notebook_setup()` in the setup cell does this |
 
    `<figure>` is the **existing filename** when the document already has that figure, so
    it is regenerated in place. Remove the notebook's own save helpers and `SAVE = ...`

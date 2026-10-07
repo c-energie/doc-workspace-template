@@ -166,12 +166,26 @@ SETUP sync
   `cd <doc>-analysis && uv run python -m pytest tests -q`.
   Use `python -m pytest`; plain `uv run pytest` can fail on Windows with
   "trampoline failed to canonicalize script path".
-- **Jupyter** comes with the `notebooks` extra: `uv run jupyter lab` from the analysis dir.
+- **Running notebooks**: walk the user through `<doc>-analysis/README.md`, "Running
+  notebooks", for the editor they use — JupyterLab (`notebooks` extra: `uv run jupyter lab`
+  from the analysis dir), VS Code, PyCharm, or marimo. For marimo, add
+  `marimo = ["<doc>-analysis[marimo]"]` (the distribution name from §4) under `[project.optional-dependencies]` in
+  the root `pyproject.toml`, add `"marimo"` to `extras` in `workspace.toml`, and re-run
+  `SETUP sync`. Whatever the editor, the kernel is **the workspace root's venv**:
+  `<workspace>\.venv\Scripts\python.exe` on Windows, `<workspace>/.venv/bin/python` elsewhere —
+  not a venv inside the analysis repo.
 - **Optional local LaTeX build** (only if `check` showed latexmk): `make` in the writing dir.
   Never commit the PDF.
 
 ## 7. Prove the pipeline
 
+- **Every mode — setup from the workspace root.** This is the case an IDE that opens the
+  whole workspace as its project hits (the kernel starts here, above the analysis repo).
+  At the workspace root:
+  `uv run python -c "import sys; from doc_analysis import notebook_setup, document_repo; notebook_setup(); print(sys.executable); print(document_repo())"`.
+  Expect the root `.venv`'s interpreter, then the absolute path of `<doc>-writing`.
+  If `DOC_REPO` is unset, the error lists every place it looked for a `.env`. Any other
+  output is a deviation to log.
 - **`fresh` / `import`**: the writing repo still has `Sections/Example/`. Run
   `<doc>-analysis/notebooks/example/example_figure.ipynb` (plotly only) — e.g.
   `cd <doc>-analysis && uv run jupyter nbconvert --to notebook --execute notebooks/example/example_figure.ipynb --output example_figure.ipynb`.

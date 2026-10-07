@@ -40,7 +40,8 @@ A **deviation** is anything the guide did not predict:
 - a step was unnecessary (already installed, already exists) or something needed was
   missing from the guide;
 - a UI differs from its description (a menu moved, a button renamed);
-- a version, path or default differs from what the guide assumes;
+- a version, path or default differs from what the guide assumes — including a notebook
+  kernel or IDE interpreter other than the one the guide names;
 - the user does something other than the guide says, or is unsure what it means.
 
 For each, append to `log.md` straight away, while the detail is fresh:
